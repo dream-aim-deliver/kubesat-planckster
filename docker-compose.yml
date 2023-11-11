@@ -16,7 +16,7 @@ services:
     db:
         image: postgres
         restart: always
-        container_name: kp-db
+        container_name: kp-postgres
         env_file:
             - ./kernel-planckster/.env
         volumes:
