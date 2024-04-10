@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directory where the files are located
-directory="infrastructure/base/secrets"
+directory="releases/base/secrets"
 
 # Pattern to match
 pattern="*.yaml"
