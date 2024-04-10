@@ -22,19 +22,19 @@ jobs:
         run: flux install
       - name: Setup cluster reconciliation
         run: |
-          flux create source git flux-system \
+          flux create source git kubesat-planckster \
           --url=${{ github.event.repository.html_url }} \
           --branch=${GITHUB_REF#refs/heads/} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }} \
           --ignore-paths="clusters/**/flux-system/"
-          flux create kustomization flux-system \
-          --source=flux-system \
-          --path=./clusters/staging
+          flux create kustomization kubesat-planckster \
+          --source=kubesat-planckster \
+          --path=./releases/staging
       - name: Verify cluster reconciliation
         run: |
           # kubectl -n flux-system wait kustomization/infra-controllers --for=condition=ready --timeout=5m
-          kubectl -n flux-system wait kustomization/apps --for=condition=ready --timeout=5m
+          kubectl -n flux-system wait kustomization/base --for=condition=ready --timeout=5m
       - name: Verify helm reconciliation
         run: |
           kubectl -n sda wait kustomization/websat-planckster --for=condition=ready --timeout=5m
