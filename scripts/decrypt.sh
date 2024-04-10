@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directory where the files are located
-directory="releases/integration/webuiint-includes"
+directory="infrastructure/base/secrets"
 
 # Pattern to match
 pattern="*.yaml"
