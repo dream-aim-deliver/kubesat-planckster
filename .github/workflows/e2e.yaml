@@ -28,16 +28,18 @@ jobs:
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }} \
           --ignore-paths="clusters/**/flux-system/"
+          flux create kustomization infra \
+          --source=kubesat-planckster \
+          --path=./infrastructure
           flux create kustomization kubesat-planckster \
           --source=kubesat-planckster \
           --path=./releases/staging
-      - name: Verify cluster reconciliation
+      - name: Verify infra reconciliation
         run: |
-          # kubectl -n flux-system wait kustomization/infra-controllers --for=condition=ready --timeout=5m
-          kubectl -n flux-system wait kustomization/base --for=condition=ready --timeout=5m
-      - name: Verify helm reconciliation
+          kubectl -n flux-system wait kustomization/infra --for=condition=ready --timeout=5m
+      - name: Verify staging reconciliation
         run: |
-          kubectl -n sda wait kustomization/websat-planckster --for=condition=ready --timeout=5m
+          # kubectl -n sda wait kustomization/kubesat-planckster --for=condition=ready --timeout=5m
       - name: Debug failure
         if: failure()
         run: |
@@ -45,4 +47,8 @@ jobs:
           kubectl -n flux-system logs deploy/source-controller
           kubectl -n flux-system logs deploy/kustomize-controller
           kubectl -n flux-system logs deploy/helm-controller
+          kubectl -n sda get all
+          kubectl -n sda logs deploy/source-controller
+          kubectl -n sda logs deploy/kustomize-controller
+          kubectl -n sda logs deploy/helm-controller
           flux get all --all-namespaces

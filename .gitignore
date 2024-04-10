@@ -1,3 +1,5 @@
 .env
 pat
 minio/data
+.key
+.crt.pem
