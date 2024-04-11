@@ -23,9 +23,11 @@ jobs:
       - name: Setup cluster reconciliation
         env:
           SOPS_AGE_SECRET: ${{ secrets.SOPS_AGE_SECRET }}
+        shell: bash
         run: |
           kubectl create ns sda
           echo "$env:SOPS_AGE_SECRET" > /tmp/sops-agekey
+          cat /tmp/sops-agekey
           cat /tmp/sops-agekey | kubectl create secret generic sops-age \
           --namespace=flux-system \
           --from-file=age.agekey=/dev/stdin \
