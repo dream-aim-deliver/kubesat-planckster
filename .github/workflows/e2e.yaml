@@ -21,13 +21,15 @@ jobs:
       - name: Install Flux in Kubernetes Kind
         run: flux install
       - name: Setup cluster reconciliation
+        env:
+          SOPS_AGE_SECRET: ${{ secrets.SOPS_AGE_SECRET }}
         run: |
           kubectl create ns sda
-          echo ${{ secrets.SOPS_AGE_SECRET }} > /tmp/flux-credentials
-          cat /tmp/flux-credentials |
-          kubectl create secret generic sops-age \
+          echo "$env:SOPS_AGE_SECRET" > /tmp/sops-agekey
+          cat /tmp/sops-agekey | kubectl create secret generic sops-age \
           --namespace=flux-system \
           --from-file=age.agekey=/dev/stdin \
+          kubectl get secret sops-age -n flux-system -o jsonpath='{.data.age\.agekey}' | base64 -d
           flux create source git kubesat-planckster \
           --url=${{ github.event.repository.html_url }} \
           --branch=${GITHUB_REF#refs/heads/} \
