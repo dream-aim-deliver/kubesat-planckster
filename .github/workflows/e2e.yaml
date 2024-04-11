@@ -26,7 +26,7 @@ jobs:
         shell: bash
         run: |
           kubectl create ns sda
-          echo "$env:SOPS_AGE_SECRET" > /tmp/sops-agekey
+          echo "${{ secrets.SOPS_AGE_SECRET }}" > /tmp/sops-agekey
           cat /tmp/sops-agekey
           cat /tmp/sops-agekey | kubectl create secret generic sops-age \
           --namespace=flux-system \
