@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: postgres
+  namespace: sda
+spec:
+  releaseName: postgresint
+  chart:
+    spec:
+      chart: postgresql
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+      version: 15.2.5
+  interval: 1m0s
+  install:
+    disableWait: true
