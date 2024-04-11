@@ -34,16 +34,19 @@ jobs:
           kubectl get secret sops-age -n flux-system -o jsonpath='{.data.age\.agekey}' | base64 -d
           flux create source git kubesat-planckster \
           --url=${{ github.event.repository.html_url }} \
+          --namespace=flux-system \
           --branch=${GITHUB_REF#refs/heads/} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }} \
           --ignore-paths="clusters/**/flux-system/"
           flux create kustomization infrastructure \
           --source=kubesat-planckster \
+          --namespace=flux-system \
           --path=./infrastructure \
           --decryption-provider=sops \
           --decryption-secret=sops-age
           flux create kustomization release \
+          --namespace=flux-system \
           --source=kubesat-planckster \
           --path=./releases/staging
           --decryption-provider=sops \
