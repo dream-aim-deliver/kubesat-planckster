@@ -22,24 +22,34 @@ jobs:
         run: flux install
       - name: Setup cluster reconciliation
         run: |
+          echo ${{ secrets.SOPS_AGE_SECRET }} > /tmp/flux-credentials
+          cat /tmp/flux-credentials |
+          kubectl create secret generic sops-age \
+          --namespace=flux-system \
+          --from-file=age.agekey=/dev/stdin
           flux create source git kubesat-planckster \
           --url=${{ github.event.repository.html_url }} \
           --branch=${GITHUB_REF#refs/heads/} \
           --username=${GITHUB_ACTOR} \
           --password=${{ secrets.GITHUB_TOKEN }} \
           --ignore-paths="clusters/**/flux-system/"
-          flux create kustomization infra \
+          flux create kustomization infrastructure \
           --source=kubesat-planckster \
-          --path=./infrastructure
-          flux create kustomization kubesat-planckster \
+          --path=./infrastructure \
+          --decryption-provider=sops \
+          --decryption-secret=sops-age
+          flux create kustomization release \
           --source=kubesat-planckster \
           --path=./releases/staging
+          --decryption-provider=sops \
+          --decryption-secret=sops-age
+          --depends-on=infrastructure
       - name: Verify infra reconciliation
         run: |
-          kubectl -n flux-system wait kustomization/infra --for=condition=ready --timeout=5m
-      - name: Verify staging reconciliation
+          kubectl -n flux-system wait kustomization/infrastructure --for=condition=ready --timeout=5m
+      - name: Verify release reconciliation
         run: |
-          # kubectl -n sda wait kustomization/kubesat-planckster --for=condition=ready --timeout=5m
+          # kubectl -n flux-system wait kustomization/release --for=condition=ready --timeout=5m
       - name: Debug failure
         if: failure()
         run: |
