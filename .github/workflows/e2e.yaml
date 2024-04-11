@@ -27,7 +27,7 @@ jobs:
           cat /tmp/flux-credentials |
           kubectl create secret generic sops-age \
           --namespace=flux-system \
-          --from-file=age.agekey=/dev/stdin
+          --from-file=age.agekey=/dev/stdin \
           flux create source git kubesat-planckster \
           --url=${{ github.event.repository.html_url }} \
           --branch=${GITHUB_REF#refs/heads/} \
