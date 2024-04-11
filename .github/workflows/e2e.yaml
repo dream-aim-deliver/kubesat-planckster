@@ -27,8 +27,8 @@ jobs:
         run: |
           kubectl create ns sda
           echo "${{ secrets.SOPS_AGE_SECRET }}" > /tmp/sops-agekey
-          cat /tmp/sops-agekey
-          cat /tmp/sops-agekey | kubectl create secret generic sops-age \
+          cat /tmp/sops-agekey | 
+          kubectl create secret generic sops-age \
           --namespace=flux-system \
           --from-file=age.agekey=/dev/stdin \
           kubectl get secret sops-age -n flux-system -o jsonpath='{.data.age\.agekey}' | base64 -d
