@@ -22,6 +22,7 @@ jobs:
         run: flux install
       - name: Setup cluster reconciliation
         run: |
+          kubectl create ns sda
           echo ${{ secrets.SOPS_AGE_SECRET }} > /tmp/flux-credentials
           cat /tmp/flux-credentials |
           kubectl create secret generic sops-age \
