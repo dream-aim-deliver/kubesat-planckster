@@ -20,4 +20,5 @@ spec:
     auth:
       username: test
       database: kp
+      password: test123
 
