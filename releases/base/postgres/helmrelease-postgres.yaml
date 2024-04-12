@@ -20,6 +20,6 @@ spec:
     global:
       postgresql:
         auth:
-          database: kp # works
-          username: test
+          database: kp
+          username: kp-admin
           existingSecret: postgres-secret
