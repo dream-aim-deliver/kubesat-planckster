@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: minio-operator
+  namespace: minio-operator
+spec:
+  chart:
+    spec:
+      chart: operator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: minio
+      version: 5.0.14
+  interval: 1m0s
+  install:
+    disableWait: true
+  
