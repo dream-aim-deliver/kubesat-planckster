@@ -17,3 +17,11 @@ spec:
   interval: 1m0s
   install:
     disableWait: true
+  values:
+    global:
+      postgresql:
+        auth:
+          username: postgres
+          password: postgres
+          database: kp
+          postgresPassword: postgres
