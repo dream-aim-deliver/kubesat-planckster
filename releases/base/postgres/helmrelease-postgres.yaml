@@ -22,5 +22,4 @@ spec:
         auth:
           database: kp # works
           username: test
-          password: test123
-          postgresPassword: test1234
+          existingSecret: postgres-secret
