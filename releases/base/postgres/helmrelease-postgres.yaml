@@ -18,7 +18,6 @@ spec:
     disableWait: true
   values:
     auth:
-      username: postgres
-      password: postgres
+      username: test
       database: kp
-      postgresPassword: postgres
+
