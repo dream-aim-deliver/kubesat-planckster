@@ -25,3 +25,8 @@ spec:
           password: postgres
           database: kp
           postgresPassword: postgres
+    auth:
+      username: postgres
+      password: postgres
+      database: kp
+      postgresPassword: postgres
