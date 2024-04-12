@@ -17,8 +17,9 @@ spec:
   install:
     disableWait: true
   values:
-    auth:
-      username: test
-      database: kp
-      password: test123
-
+    global:
+      postgresql:
+        auth:
+          database: kp # works
+          username: test
+          password: test123
