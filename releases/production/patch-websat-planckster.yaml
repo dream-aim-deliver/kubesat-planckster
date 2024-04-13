@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: websat-planckster
+  namespace: sda
+  labels:
+    ch.dadai.service: websat-planckster
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      ch.dadai.service: websat-planckster
+  template:
+    metadata:
+      labels:
+        ch.dadai.service: websat-planckster
+    spec:
+      containers:
+        - name: websat-planckster
+          image: maany/websat-planckster:1.0.0-beta
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "4Gi"
+            requests:
+              cpu: "1"
+              memory: "2Gi"
+          env:
+            - name: NEXTAUTH_URL
+              value: "http://localhost:3000" # TODO: patch in production
+            # - name: HOSTNAME
+            #   value: "localhost" # TODO: patch in production
+            - name: KP_CLIENT_ID
+              value: "1"
+      restartPolicy: Always
