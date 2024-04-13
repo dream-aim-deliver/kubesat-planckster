@@ -3,4 +3,4 @@ pat
 minio/data
 .key
 .crt.pem
-patch-kp-minio-credentials.yaml
+minio-secret-patch.yaml
