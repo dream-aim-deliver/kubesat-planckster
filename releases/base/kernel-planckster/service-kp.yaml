@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    ch.dadai.service: kernel-planckster
+  name: kernel-planckster
+  namespace: sda
+spec:
+  ports:
+    - name: "8000"
+      port: 8000
+      targetPort: 8000
+  selector:
+    ch.dadai.service: kernel-planckster
