@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    ch.dadai.service: websat-planckster
+  name: websat-planckster
+  namespace: sda
+spec:
+  ports:
+    - name: "nextjs"
+      port: 3000
+      targetPort: nextjs
+  selector:
+    ch.dadai.service: websat-planckster

@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: websat-planckster
+  namespace: sda
+  labels:
+    ch.dadai.service: websat-planckster
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      ch.dadai.service: websat-planckster
+  template:
+    metadata:
+      labels:
+        ch.dadai.service: websat-planckster
+    spec:
+      initContainers:
+        - name: wait-for-kernel-planckster
+          image: darthcabs/tiny-tools:1
+          args:
+          - /bin/bash
+          - -c
+          - >
+            set -x;
+            while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://kernel-planckster.sda.svc.cluster.local:8000/ping)" != "200" ]]; do 
+              echo '.'
+              sleep 15;
+            done;
+      containers:
+        - name: websat-planckster
+          image: maany/websat-planckster:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+              name: nextjs
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "0.5"
+              memory: "512Mi"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /ping
+          #     port: 3000
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 5
+          #   timeoutSeconds: 5
+          env:
+            - name: HTTPD_ENABLE_SSL
+              value: "False"
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: websat-openai-secret
+                  key: apikey
+            - name: OPENAI_ASSISTANT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: websat-openai-secret
+                  key: assistantid
+            - name: PRIMARY_USER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: websat-auth-secret
+                  key: primary_user_username
+            - name: PRIMARY_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: websat-auth-secret
+                  key: primary_user_password
+            - name: SECONDARY_USER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: websat-auth-secret
+                  key: secondary_user_username
+            - name: SECONDARY_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: websat-auth-secret
+                  key: secondary_user_password
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: websat-auth-secret
+                  key: nextauth_secret
+            - name: NEXTAUTH_URL
+              value: "http://localhost:3000" # TODO: patch in production
+            # - name: HOSTNAME
+            #   value: "localhost" # TODO: patch in production
+            - name: KP_HOST
+              value: "http://kernel-planckster.sda.svc.cluster.local:8000"
+            - name: KP_CLIENT_ID
+              value: "1"
+            - name: KP_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: kp-auth-token
+                  key: kp_auth_token
+      restartPolicy: Always
