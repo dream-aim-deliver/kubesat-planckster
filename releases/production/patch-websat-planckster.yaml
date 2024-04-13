@@ -33,4 +33,3 @@ spec:
             #   value: "localhost" # TODO: patch in production
             - name: KP_CLIENT_ID
               value: "1"
-      restartPolicy: Always
