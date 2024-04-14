@@ -6,7 +6,7 @@ metadata:
   labels:
     ch.dadai.service: kernel-planckster
 spec:
-  replicas: 5
+  replicas: 3
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -27,9 +27,9 @@ spec:
               value: "*.cluster.local, *.devmaany.com"
           resources:
             limits:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "100m"
             requests:
-              memory: "64Mi"
-              cpu: "50m"
+              memory: "256Mi"
+              cpu: "100m"
 

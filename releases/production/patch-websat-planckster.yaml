@@ -6,7 +6,7 @@ metadata:
   labels:
     ch.dadai.service: websat-planckster
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       ch.dadai.service: websat-planckster
@@ -28,8 +28,8 @@ spec:
               value: "1"
           resources:
             limits:
-              memory: "256Mi"
+              memory: "512Mi"
               cpu: "100m"
             requests:
-              memory: "64Mi"
-              cpu: "50m"
+              memory: "256Mi"
+              cpu: "100m"
