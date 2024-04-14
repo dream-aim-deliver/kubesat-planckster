@@ -23,7 +23,8 @@ You can then apply the secret to the cluster with the following command:
 kubectl apply -f minio-secret-patch.yaml
 ```
 
-## Exposing services via Cloudflare
+## Creatin a new tunnel/route via Cloudflare
+### Create a new tunnel from scratch
 To expose a new serivce from the cluster to the internet, you need to create a new Cloudflare tunnel you can use the `scripts/cloudflare-tunnel.sh` script to create a new tunnel. 
 
 ```bash
@@ -34,6 +35,17 @@ This script will generate a secret in `/releases/production/secrets` directory c
 
 Please make sure you encrypt the secret before committing it to the repository.
 
-This script also generates `releases/production/cloudflared/$TUNNEL_NAME` directory with sample manifests. Please update the tunnel name and the route in the config map and the deployment manifests.
-
 DO NOT FORGET TO EXPOSE THE SECRET AND THE MANIFESTS in the corresponding `kustomization.yaml` files.
+
+### Exposing a service
+To expose a service, you need to create a new route for the tunnel. You can use the following command to create a new route:
+
+Please update the ingress section of the configuration file in `releases/production/cloudflared/config.yaml` to include the new route.
+
+Also, add a DNS record for every route you wish to configure
+```bash
+cloudflared tunnel route dns <tunnel-name> <sub-domain>.devmaany.com
+```
+
+Push the changes to the repository and the tunnel will be updated automatically.
+
