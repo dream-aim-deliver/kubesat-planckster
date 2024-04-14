@@ -24,5 +24,7 @@ data:
     # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
     - hostname: kernel-planckster.devmaany.com
       service: http://kernel-planckster.sda.svc.cluster.local:8000
+    - hostname: sda.devmaany.com
+      service: http://websat-planckster.sda.svc.cluster.local:3000
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     - service: http_status:404
