@@ -2,7 +2,20 @@
 # This script creates a Cloudflare tunnel and generates a Kubernetes secret with the tunnel credentials.
 
 # Set the name of the tunnel
-TUNNEL_NAME="example-tunnel"
+TUNNEL_NAME="$1"
+
+# Check if tunnel name is provided
+if [ -z "$TUNNEL_NAME" ]; then
+    echo "Please provide a tunnel name."
+    echo "Usage: $0 <tunnel_name>"
+    exit 1
+fi
+
+# Ensure tunnel name ends in "-tunnel"
+if [[ ! $TUNNEL_NAME == *-tunnel ]]; then
+    TUNNEL_NAME="${TUNNEL_NAME}-tunnel"
+    echo "Tunnel name updated to: $TUNNEL_NAME"
+fi
 
 # Log in to Cloudflare tunnel
 echo "Logging in to Cloudflare tunnel..."
@@ -25,3 +38,18 @@ echo "Creating Kubernetes secret..."
 kubectl -n cloudflare --dry-run=client create secret generic $TUNNEL_NAME-credentials \
 --from-file=credentials.json=$HOME_DIR/.cloudflared/${TUNNEL_ID}.json -o yaml > $TUNNEL_NAME-credentials.yaml
 echo "Kubernetes secret created: $TUNNEL_NAME-credentials.yaml"
+
+# Move the secret file to releases/production/secrets directory
+echo "Moving secret file to releases/production/secrets directory."
+mv $TUNNEL_NAME-credentials.yaml releases/production/secrets
+
+echo "Please export this secret in the releases/production/secrets/kustomization.yaml file."
+
+# Create the tunnel manifests
+mkdir -p releases/production/cloudflared/$TUNNEL_NAME
+
+# Copy the manifests in sda-tunnel directory to the releases/production/cloudflared/$TUNNEL_NAME directory
+echo "Create the sample tunnel manifests in the releases/production/cloudflared/$TUNNEL_NAME directory."
+cp -r releases/production/cloudflared/sda-tunnel/* releases/production/cloudflared/$TUNNEL_NAME
+
+echo "Please update the tunnel manifests in the releases/production/cloudflared/$TUNNEL_NAME directory."
