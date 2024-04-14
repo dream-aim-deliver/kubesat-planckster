@@ -50,10 +50,10 @@ mv $TUNNEL_FULL_NAME-credentials.yaml releases/production/secrets
 echo "Please export this secret in the releases/production/secrets/kustomization.yaml file."
 
 # Create the tunnel manifests
-mkdir -p releases/production/cloudflared/$TUNNEL_FULL_NAME
+# mkdir -p releases/production/cloudflared/$TUNNEL_FULL_NAME
 
 # Copy the manifests in sda-tunnel directory to the releases/production/cloudflared/$TUNNEL_FULL_NAME directory
-echo "Create the sample tunnel manifests in the releases/production/cloudflared/$TUNNEL_FULL_NAME directory."
-cp -r releases/production/cloudflared/sda-tunnel/* releases/production/cloudflared/$TUNNEL_FULL_NAME
+# echo "Create the sample tunnel manifests in the releases/production/cloudflared/$TUNNEL_FULL_NAME directory."
+# cp -r releases/production/cloudflared/sda-tunnel/* releases/production/cloudflared/$TUNNEL_FULL_NAME
 
 echo "Please update the tunnel manifests in the releases/production/cloudflared/$TUNNEL_FULL_NAME directory."
