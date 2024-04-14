@@ -26,3 +26,10 @@ spec:
             #   value: "localhost" # TODO: patch in production
             - name: KP_CLIENT_ID
               value: "1"
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "100m"
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
