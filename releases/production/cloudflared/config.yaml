@@ -26,4 +26,6 @@ data:
     - hostname: sda.devmaany.com
       service: http://websat-planckster.sda.svc.cluster.local:3000
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
+    - hostname: kubeflow.devmaany.com
+      service: http://istio-ingressgateway.istio-system.svc.cluster.local:80
     - service: http_status:404
