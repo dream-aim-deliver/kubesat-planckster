@@ -3,4 +3,10 @@ pat
 minio/data
 .key
 .crt.pem
+
+# temporary files
 minio-secret-patch.yaml
+kp-minio-credentials.yaml
+Dockerfile
+network.yaml
+temp.*
