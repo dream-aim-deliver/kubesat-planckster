@@ -28,4 +28,6 @@ data:
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     - hostname: kubeflow.devmaany.com
       service: http://istio-ingressgateway.istio-system.svc.cluster.local:80
+    - hostname: sda-minio.devmaany.com
+      service: https:/minio.minio-operator.svc.cluster.local:9000
     - service: http_status:404
