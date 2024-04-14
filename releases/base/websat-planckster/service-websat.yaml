@@ -7,8 +7,8 @@ metadata:
   namespace: sda
 spec:
   ports:
-    - name: "nextjs"
+    - name: "3000"
       port: 3000
-      targetPort: nextjs
+      targetPort: 3000
   selector:
     ch.dadai.service: websat-planckster
