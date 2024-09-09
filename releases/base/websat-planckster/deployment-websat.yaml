@@ -36,7 +36,7 @@ spec:
           image: maany/websat-planckster:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 80
               protocol: TCP
               name: nextjs
           resources:
@@ -61,11 +61,6 @@ spec:
                 secretKeyRef:
                   name: websat-openai-secret
                   key: apikey
-            - name: OPENAI_ASSISTANT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: websat-openai-secret
-                  key: assistantid
             - name: PRIMARY_USER_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -76,16 +71,6 @@ spec:
                 secretKeyRef:
                   name: websat-auth-secret
                   key: primary_user_password
-            - name: SECONDARY_USER_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: websat-auth-secret
-                  key: secondary_user_username
-            - name: SECONDARY_USER_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: websat-auth-secret
-                  key: secondary_user_password
             - name: NEXTAUTH_SECRET
               valueFrom:
                 secretKeyRef:
