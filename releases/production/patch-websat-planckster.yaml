@@ -33,3 +33,18 @@ spec:
             requests:
               memory: "1Gi"
               cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: websat-planckster
+  namespace: sda
+  labels:
+    ch.dadai.service: websat-planckster
+spec:
+  ports:
+    - name: "80"
+      port: 80
+      targetPort: 80
+  selector:
+    ch.dadai.service: websat-planckster
