@@ -21,7 +21,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: NEXTAUTH_URL
-              value: "https://websat-planckster.devmaany.com" # TODO: patch in production
+              value: "https://sda.devmaany.com" # TODO: patch in production
             # - name: HOSTNAME
             #   value: "localhost" # TODO: patch in production
             - name: KP_CLIENT_ID
