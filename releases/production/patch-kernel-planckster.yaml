@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: kernel-planckster
-          image: maany/kernel-planckster:1.0.0-alpha
+          image: maany/kernel-planckster:2.0.0
           env:
             - name: KP_ALLOWED_ORIGINS
               value: "*.cluster.local, *.devmaany.com"

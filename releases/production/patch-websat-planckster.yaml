@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: websat-planckster
-          image: maany/websat-planckster:2.0.0-rc.1
+          image: maany/websat-planckster:2.0.0-rc.2
           imagePullPolicy: Always
           env:
             - name: NEXTAUTH_URL
