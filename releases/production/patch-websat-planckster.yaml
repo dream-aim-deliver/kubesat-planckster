@@ -17,13 +17,13 @@ spec:
     spec:
       containers:
         - name: websat-planckster
-          image: maany/websat-planckster:2.0.0-rc.5
+          image: maany/websat-planckster:2.0.0-rc.6
           imagePullPolicy: Always
           env:
             - name: NEXTAUTH_URL
               value: "https://sda.devmaany.com" # TODO: patch in production
-            # - name: HOSTNAME
-            #   value: "localhost" # TODO: patch in production
+            - name: NEXT_PUBLIC_APP_URL
+              value: "https://sda.devmaany.com" # TODO: patch in production
             - name: KP_CLIENT_ID
               value: "1"
           resources:
