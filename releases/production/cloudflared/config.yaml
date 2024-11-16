@@ -30,4 +30,6 @@ data:
       service: http://istio-ingressgateway.istio-system.svc.cluster.local:80
     - hostname: sda-minio.devmaany.com
       service: https://minio.minio-operator.svc.cluster.local
+      originRequest:
+        noTLSVerify: true
     - service: http_status:404
