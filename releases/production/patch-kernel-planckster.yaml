@@ -25,6 +25,12 @@ spec:
           env:
             - name: KP_ALLOWED_ORIGINS
               value: "*.cluster.local, *.devmaany.com"
+            - name: KP_OBJECT_STORE_HOST
+              value: "sda-minio.devmaany.com"
+            - name: KP_OBJECT_STORE_PORT
+              value: "443"
+            - name: KP_OBJECT_STORE_SECURE
+              value: "true"
           resources:
             limits:
               memory: "256Mi"
