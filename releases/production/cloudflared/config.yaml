@@ -33,4 +33,9 @@ data:
       originRequest:
         noTLSVerify: true
         httpHostHeader: sda-minio.devmaany.com
+    - hostname: sda-minio-console.devmaany.com
+      service: https://myminio-console.minio-operator.svc.cluster.local:9443
+      originRequest:
+        noTLSVerify: true
+        httpHostHeader: sda-minio-console.devmaany.com
     - service: http_status:404
