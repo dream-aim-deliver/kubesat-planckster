@@ -32,4 +32,5 @@ data:
       service: https://minio.minio-operator.svc.cluster.local
       originRequest:
         noTLSVerify: true
+        httpHostHeader: sda-minio.devmaany.com
     - service: http_status:404
