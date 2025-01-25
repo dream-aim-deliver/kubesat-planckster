@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: minio
-      version: 5.0.14
+      version: 6.0.4
   interval: 1m0s
   install:
     remediation:
