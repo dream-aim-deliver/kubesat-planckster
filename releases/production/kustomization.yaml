@@ -7,3 +7,4 @@ resources:
 patchesStrategicMerge:
   - ./patch-kernel-planckster.yaml
   - ./patch-websat-planckster.yaml
+  - ./patch-helmrelease-minio-prod.yaml
