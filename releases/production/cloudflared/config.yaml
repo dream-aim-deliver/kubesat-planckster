@@ -29,12 +29,12 @@ data:
     - hostname: kubeflow.devmaany.com
       service: http://istio-ingressgateway.istio-system.svc.cluster.local:80
     - hostname: sda-minio.devmaany.com
-      service: https://minio.minio-operator.svc.cluster.local
+      service: https://minio.minio.svc.cluster.local
       originRequest:
         noTLSVerify: true
         httpHostHeader: sda-minio.devmaany.com
     - hostname: sda-minio-console.devmaany.com
-      service: https://myminio-console.minio-operator.svc.cluster.local:9443
+      service: https://sda-minio-console.minio.svc.cluster.local:9443
       originRequest:
         noTLSVerify: true
         httpHostHeader: sda-minio-console.devmaany.com
