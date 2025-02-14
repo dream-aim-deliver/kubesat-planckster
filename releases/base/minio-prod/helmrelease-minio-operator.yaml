@@ -16,6 +16,6 @@ spec:
   interval: 1m0s
   install:
     disableWait: true
-    crds: Skip
+    skipCRDs: true
   values:
   
