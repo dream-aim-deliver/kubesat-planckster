@@ -5,6 +5,5 @@ resources:
     - ./bitnami
     - ./postgres
     - ./minio
-    # - ./minio-prod
     - ./kernel-planckster
     - ./websat-planckster
