@@ -7,3 +7,4 @@ resources:
     - ./minio
     - ./kernel-planckster
     - ./websat-planckster
+    - ./mpi-sda-swissgrid-predictor
