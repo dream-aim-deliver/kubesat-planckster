@@ -19,6 +19,8 @@ spec:
       labels:
         ch.dadai.service: kernel-planckster
     spec:
+      nodeSelector:
+          kubernetes.io/hostname: "sda-worker-3"
       containers:
         - name: kernel-planckster
           image: maany/kernel-planckster:2.0.0
@@ -34,8 +36,8 @@ spec:
           resources:
             limits:
               memory: "6Gi"
-              cpu: "2000m"
+              cpu: "3000m"
             requests:
               memory: "4Gi"
-              cpu: "2000m"
+              cpu: "3000m"
 
