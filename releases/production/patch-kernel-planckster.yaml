@@ -20,7 +20,7 @@ spec:
         ch.dadai.service: kernel-planckster
     spec:
       nodeSelector:
-          kubernetes.io/hostname: "sda-worker-3"
+          kubernetes.io/hostname: "sda-worker-03"
       containers:
         - name: kernel-planckster
           image: maany/kernel-planckster:2.0.0
