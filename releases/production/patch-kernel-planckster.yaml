@@ -23,10 +23,12 @@ spec:
           kubernetes.io/hostname: "sda-worker-03"
       containers:
         - name: kernel-planckster
-          image: maany/kernel-planckster:2.0.0
+          image: maany/kernel-planckster:2.0.1
           env:
-            - name: KP_ALLOWED_ORIGINS
+            - name: KP_FASTAPI_ALLOWED_ORIGINS
               value: "*.cluster.local, *.devmaany.com"
+            - name: KP_FASTAPI_WORKERS
+              value: "4"
             - name: KP_OBJECT_STORE_HOST
               value: "sda-minio.devmaany.com"
             - name: KP_OBJECT_STORE_PORT
