@@ -6,7 +6,7 @@ metadata:
   labels:
     ch.dadai.service: kernel-planckster
 spec:
-  replicas: 1
+  replicas: 0
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -23,7 +23,7 @@ spec:
           kubernetes.io/hostname: "sda-worker-03"
       containers:
         - name: kernel-planckster
-          image: maany/kernel-planckster:2.0.1
+          image: maany/kernel-planckster:2.0.2
           env:
             - name: KP_ALLOWED_ORIGINS
               value: "*.cluster.local, *.devmaany.com"
